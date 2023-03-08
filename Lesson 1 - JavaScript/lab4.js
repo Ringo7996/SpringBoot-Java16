@@ -8,6 +8,7 @@ function tenTimes(string) {
 }
 
 
+
 // Bài 2. Viết function truyền vào 1 chuỗi bất kỳ, viết hàm sao chép đó chuỗi lên 10 lần, ngăn cách nhau bởi dấu gạch ngang.
 function tenTimesWithHyphen(string) {
     let ans = "";
@@ -21,6 +22,7 @@ function tenTimesWithHyphen(string) {
     }
     return ans;
 }
+
 
 // Bài 3. Viết function truyền vào 1 chuỗi bất kỳ và 1 số nguyên dương n > 1, 
 // hãy viết hàm có tác dụng sao chép đó chuỗi lên n lần, ngăn cách nhau bởi dấu gạch ngang.
@@ -39,17 +41,15 @@ function nTimesWithHyphen(string, number) {
 
 
 // Bài 4. Tính tổng các số chia hết cho 5 từ 0 -> 100
-let sum = 0;
-for (let i = 0; i <= 100; i + 5) {
-    sum += i;
+let sumDivisible5 = 0;
+for (let i = 0; i <= 100; i = i + 5) {
+    sumDivisible5 += i;
 }
-
 
 // Bài 5: Viết hàm tính thể tích hình cầu, với tham số truyền vào là bán kính của hình cầu.
 function sphereVolume(radius) {
     return radius * radius * 4 / 3 * 3.14;
 }
-
 
 // Bài 6: Viết hàm truyền vào 2 số nguyên, tính tổng tất cả các số nguyên nằm giữa chúng. 
 function sumOfMiddleNumbers(a, b) {
@@ -96,15 +96,13 @@ function sumPrimaryNumbers(number) {
             sum += i;
         }
     }
-
     return sum;
 }
-
 
 // Bài 9: Cho 1 số nguyên dương, viết hàm tính tổng tất cả các ước số của số đó.
 function sumDivisor(number) {
     let sum = 0;
-    for (let i = 1; i < number; i++) {
+    for (let i = 1; i <= number; i++) {
         if (number % i == 0) {
             sum += i;
         }

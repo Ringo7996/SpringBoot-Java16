@@ -5,7 +5,6 @@ function calculateFactorial(number) {
         factorial *= i;
     }
     return factorial;
-
 }
 
 
@@ -15,7 +14,6 @@ function reverseString(string) {
     for (let index = string.length; index >= 0; index--) {
         reverse += string.substring(index, index - 1);
     }
-
     console.log(reverse);
 }
 
