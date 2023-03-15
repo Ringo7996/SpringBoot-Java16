@@ -1,20 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
-        <link rel="stylesheet" href="./style.css" />
-    </head>
 
-    <body>
-        <div class="main-container">
-            <h1 class="title">Đếm số</h1>
-            <h1 id="counter" style="color: #333333">0</h1>
-            <div class="btn-container">
-                <button class="btn counterBtn prevBtn">Trừ</button>
-                <button class="btn counterBtn nextBtn">Cộng</button>
-            </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <div class="main-container">
+        <h1 class="title">Đếm số</h1>
+        <h1 id="counter" style="color: #333333">0</h1>
+        <div class="btn-container">
+            <button class="btn counterBtn prevBtn">Trừ</button>
+            <button class="btn counterBtn nextBtn">Cộng</button>
         </div>
-    </body>
+    </div>
+
+
+    <script>
+        let counter = document.getElementById("counter");
+        let plus = document.querySelector(".nextBtn");
+        let minus = document.querySelector(".prevBtn");
+
+        plus.addEventListener("click", function () {
+            counter.textContent++;
+            colorChange();
+        });
+
+        minus.addEventListener("click", function () {
+            counter.textContent--;
+            colorChange();
+        });
+
+
+        function colorChange() {
+            if (counter.textContent > 0) {
+                counter.style.color = "green";
+            } else if (counter.textContent < 0) {
+                counter.style.color = "red";
+            } else {
+                counter.style.color = "#333333";
+            }
+        }
+
+
+    </script>
+
+</body>
+
 </html>
