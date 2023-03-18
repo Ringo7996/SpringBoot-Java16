@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Danh sách tỉnh thành phố</h2>
+    <select id="province"></select>
+    <select id="district"></select>
+    <select id="commune"></select>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+    <script>
+        let provinceSelect = document.getElementById("province");
+        let districtSelect = document.getElementById("district");
+        let communeSelect = document.getElementById("commune");
+
+        getProvince()
+        // API trả về list province
+        async function getProvince() {
+            let res = await axios.get("https://provinces.open-api.vn/api/p/");
+            addProvinceList(res.data)
+        }
+
+        // gán province list vào selection/option
+        function addProvinceList(provinceList) {
+            //chạy vòng lặp với province list đã lấy được từ API, gán từng phần tử vào <option>
+            provinceList.forEach(province => {
+                let provinceOpt = document.createElement("option");
+                provinceOpt.value = province.code;
+                provinceOpt.innerText = province.name;
+                provinceSelect.appendChild(provinceOpt);
+            });
+
+            // lấy giá trị province code để gọi API tìm district list
+            let provinceCode = provinceSelect.value;
+            getDistrict(provinceCode)
+
+        }
+
+        async function getDistrict(provinceCode) {
+            let res = await axios.get(`https://provinces.open-api.vn/api/p/${provinceCode}?depth=2`);
+            addDistrictList(res.data.districts)
+        }
+
+        function addDistrictList(districtList) {
+            let districtOpt = document.querySelector("#district > option");
+
+            if (districtOpt) {
+                districtSelect.innerHTML = "";
+            }
+            districtList.forEach(district => {
+                let districtOpt = document.createElement("option");
+                districtOpt.innerText = district.name;
+                districtOpt.value = district.code;
+                districtSelect.appendChild(districtOpt);
+            });
+            let districtCode = districtSelect.value;
+            getCommune(districtCode)
+        }
+
+        async function getCommune(districtCode) {
+            let res = await axios.get(`https://provinces.open-api.vn/api/d/${districtCode}?depth=2`);
+            addCommuneList(res.data.wards)
+        }
+
+        function addCommuneList(communeList) {
+            let communeOpt = document.querySelector("#commune > option");
+
+            if (communeOpt) {
+                communeSelect.innerHTML = "";
+            }
+            communeList.forEach(commune => {
+                let communeOpt = document.createElement("option");
+                communeOpt.innerText = commune.name;
+                communeSelect.appendChild(communeOpt);
+            });
+        }
+
+
+        // add event khi click chọn mỗi selection thì gọi API tìm list tương ứng
+        provinceSelect.addEventListener("click", function () {
+            let provinceCode = provinceSelect.value;
+            getDistrict(provinceCode)
+        })
+
+        districtSelect.addEventListener("click", function () {
+            let districtCode = districtSelect.value;
+            getCommune(districtCode)
+        })
+
+
+    </script>
+</body>
+</html>
+
+
+
+

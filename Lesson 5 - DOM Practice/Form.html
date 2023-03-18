@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh
+        }
+
+        h1 {
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 2rem;
+        }
+
+        .container {
+            width: 400px;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .form-input {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .form-input button {
+            content: "";
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            border: none;
+            background-color: transparent;
+
+        }
+
+        .form-input button:hover {
+            text-decoration: underline;
+            color: #3171E5;
+        }
+
+        input {
+            border: 1px solid #ccc;
+            height: 36px;
+            line-height: 36px;
+            padding-left: 10px;
+            width: 100%;
+        }
+
+        #btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #3171E5;
+            color: #fff;
+            border: none;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .error {
+            display: inline-block;
+            color: orangered;
+        }
+
+        .success {
+            border: 1px solid green;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Registration Form</h1>
+        <form id="registrationForm">
+            <div class="form-input">
+                <input id="username" type="text">
+            </div>
+            <div class="form-input">
+                <input id="password" type="password">
+                <button>Hiện</button>
+            </div>
+            <div class="form-input">
+                <input id="confirmPassword" type="password">
+                <button>Hiện</button>
+            </div>
+            <button type="submit" id="btn">Register</button>
+        </form>
+    </div>
+
+    <script>
+
+        //Thêm label cho các trường username, password, confirm password (sử dụng thẻ label để thêm các tiêu đề tương ứng cho các ô input)
+        let username = document.createElement("label");
+        username.htmlFor = "Username";
+        let username_input = document.getElementById("username");
+        username_input.insertAdjacentElement("beforebegin", username);
+
+        let password = document.createElement("label");
+        password.htmlFor = "Password";
+        let password_input = document.getElementById("password");
+        password_input.insertAdjacentElement("beforebegin", password);
+
+
+        let confirmpw = document.createElement("label");
+        confirmpw.htmlFor = "Confirm password";
+        let confirmpw_input = document.getElementById("confirmPassword");
+        confirmpw_input.insertAdjacentElement("beforebegin", confirmpw);
+
+
+        // Kiểm tra xem password và confirm pass có trùng nhau hay không
+        function checkPassword() {
+            if (password_input.value == confirmpw_input.value) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        // Đảm bảo nút ‘Đăng ký’ bị disable cho đến khi người dùng nhập dữ liệu hợp lệ vào tất cả các trường đầu vào.
+        // Sau khi nhập đầy đủ thì ‘Đăng ký’ được enable.
+        let register = document.getElementById("btn");
+        register.disabled = true;
+
+        let checkUsername;
+        username_input.addEventListener("keyup", function () {
+            checkUsername = username_input.value != "";
+        })
+        let checkPw;
+        password_input.addEventListener("keyup", function () {
+            checkPw = password_input.value != "";
+        })
+
+        let checkconfirmPw
+        confirmpw_input.addEventListener("keyup", function () {
+            checkconfirmPw = confirmpw_input.value != "";
+        })
+
+        document.addEventListener("mousemove", function () {
+            if (checkUsername && checkPw && checkconfirmPw) {
+                register.disabled = false;
+                console.log(register);
+            }
+        })
+
+
+        // Khi user nhập đủ thông tin hợp lệ và bấm vào nút submit thì tạo 1 hộp thoại thông báo đăng ký thành công
+        register.addEventListener("click", function () {
+            if (checkPassword()) {
+                alert("Đăng kí thành công");
+            } else {
+                alert("Xác nhận mật khẩu không khớp");
+            }
+
+        })
+
+
+
+    </script>
+
+
+
+</body>
+
+</html>

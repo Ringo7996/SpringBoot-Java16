@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+    </ul>
+
+
+    <script>
+        //Thêm 3 thẻ <li> có nội dung Item 8, Item 9, Item 10 vào cuối danh sách
+        let ul = document.getElementById("list");
+        for (let i = 8; i <= 10; i++) {
+            let li = document.createElement("li");
+            li.textContent = `Item ${i}`;
+            ul.appendChild(li);
+        }
+
+        //Sửa nội dung cho thẻ <li> 1 thành màu đỏ (color)
+        let li1 = document.getElementsByTagName("li")[0];
+        li1.style.color = "red";
+
+        //Sửa background cho thẻ <li> 3 thành màu xanh (background-color)
+        let li3 = document.getElementsByTagName("li")[2];
+        li3.style.backgroundColor = "blue";
+
+        //Remove thẻ <li> 4
+        let li4 = document.querySelector("li:nth-child(4)")
+        li4.parentNode.removeChild(li4);
+
+        //Thêm thẻ <li> mới thay thế cho thẻ <li> 4 bị xóa ở bước trước, thẻ <li> mới có nội dung bất kỳ
+        let newli = document.createElement("li");
+        newli.textContent = "new item";
+        li3.insertAdjacentElement("afterend", newli);
+
+
+        //Thêm 1 nút “add” + 1 ô input để nhập text. Mỗi khi bấm nút thêm 1 thẻ <li> có nội dung là nội dung trong ô input vào cuối danh sách
+        let input = document.createElement("input");
+        let addButton = document.createElement("button");
+        addButton.textContent = "Add";
+
+        document.body.insertAdjacentElement("beforeEnd", addButton);
+        document.body.insertAdjacentElement("beforeEnd", input);
+
+        addButton.addEventListener("click", function () {
+            let value = input.value;
+            if (value == "") {
+                alert("Nội dung rỗng");
+                return;
+            }
+
+            let addli = document.createElement("li");
+            addli.textContent = value;
+            ul.appendChild(addli);
+            input.value = "";
+        })
+
+
+        //Thêm 1 nút “remove”. Chức năng để xóa thẻ <li> cuối cùng của danh sách
+        let removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+        document.body.insertAdjacentElement("beforeEnd", removeButton);
+
+        removeButton.addEventListener("click", function () {
+            let lastli = document.querySelector("li:last-child");
+            if (lastli) {
+                console.log(lastli)
+                console.log(ul.lastChild)
+                ul.removeChild(ul.lastChild);
+            }
+        })
+
+
+        //Thêm 1 nút “Hide” trên đầu của danh sách <ul>.Khi bấm vào “Hide” thì <ul> sẽ ẩn. Đồng thời label của nút “Hide” => “Show”
+        // Và ngược lại Khi bấm vào “Show” thì <ul> sẽ hiện. Đồng thời label của nút “Show” => “Hide”
+        let hideButton = document.createElement("button");
+        hideButton.textContent = "Hide";
+        document.body.insertAdjacentElement("beforeEnd", hideButton);
+
+
+        hideButton.addEventListener("click",function(){
+            console.log(ul.style.display);
+            if (ul.style.display = ""){
+                ul.style.display = "block";
+                hideButton.textContent = "Show";
+            } else{
+                ul.style.display = "";
+                hideButton.textContent = "Hide";
+            }
+
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>
