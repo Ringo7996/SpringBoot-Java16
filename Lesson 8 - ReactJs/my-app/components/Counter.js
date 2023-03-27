@@ -4,7 +4,6 @@ function Counter() {
     const [counter, setCounter] = useState(0);
     const [counterColor, setCounterColor] = useState("#333333");
 
-
     function changeColor(counterA){
         if (counterA == 0){
             setCounterColor("#133333")
