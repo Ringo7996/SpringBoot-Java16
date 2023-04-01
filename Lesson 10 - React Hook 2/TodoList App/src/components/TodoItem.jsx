@@ -1,25 +1,19 @@
 import React from "react";
 
-function TodoItem({ todo, onDelete }) {
+function TodoItem({ todo, onDelete, onChangeStatus }) {
     const handleDelete = () => {
         onDelete(todo.id);
 
     }
 
-    function changeColor(event) {
-        let checkBox = event.target;
-        let span = checkBox.parentElement.children[1]
-        if (checkBox.checked === true) {
-            span.style.color = "red";
-        } else {
-            span.style.color = "";
-        }
+    const handleChangeStatus = () => {
+        onChangeStatus(todo.id);
     }
 
     return (
         <li>
-            <input onClick={changeColor} type="checkbox"></input>
-            <span>{todo.title}</span>
+          <input type="checkbox" checked={todo.status} onChange={handleChangeStatus} />
+            <span className={todo.status ? "active" : ""}>{todo.title}</span>
             <button onClick={handleDelete}> Delete </button>
         </li>
     )

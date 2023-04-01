@@ -22,9 +22,6 @@ function TodoList(props) {
         getAllTodoList();
     }, [todos]);
 
-
-
-
     const handleDelete = async (index) => {
         try {
             let result = await fetch(API_URL + "/" + index, {
@@ -76,8 +73,54 @@ function TodoList(props) {
         } catch (error) {
             console.error(error);
         }
-
     }
+
+
+
+
+
+
+
+
+
+    
+
+    const updateStatus = async (id) => {
+        const todo = todos.find((todo) => todo.id === id);
+        let updateTodo = { title: todo.title, status: !todo.status };
+        handleUpdateTodo(id, updateTodo);
+    };
+
+
+    const handleUpdateTodo = async (id, updateTodo) => {
+        // Goi PUT API de update todo
+        try {
+            let putResult = await fetch(API_URL + "/" + id, {
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                },
+                method: "PUT",
+                body: JSON.stringify(updateTodo),
+            });
+            if (putResult.status === 200) {
+                const updatedTodos = todos.map(todoItem => {
+                    if (todoItem.id === id) {
+                        return { ...todoItem, title: updateTodo.title, status: updateTodo.status };
+                    } else {
+                        return todoItem;
+                    }
+                })
+                setTodos(updatedTodos);
+            } else {
+                console.error(putResult);
+                alert("Error when updating todo item");
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
 
 
 
@@ -86,12 +129,10 @@ function TodoList(props) {
             <h1>TodoList App</h1>
             <input id="todoText" type="text" placeholder="Enter todo title..." value={title} onChange={e => setTitle(e.target.value)}></input>
             <button id="addtodoButton" onClick={addTodo}>Add</button>
-
-
             <ul>
                 {/* List */}
                 {todos.length > 0 && todos.map((todo) => (
-                    <TodoItem key={todo.id} todo={todo} onDelete={handleDelete} />
+                    <TodoItem key={todo.id} todo={todo} onDelete={handleDelete} onChangeStatus={updateStatus} />
                 ))}
             </ul>
         </>
@@ -99,5 +140,4 @@ function TodoList(props) {
 }
 
 export default TodoList
-
 // trong return ko dung dc if, for, chi dung dc funtion kieu xml, nhu la map
