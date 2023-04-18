@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+<div class="container">
+    <p>
+        Employers
+    </p>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Address</th>
+        </tr>
+        </thead>
+        <tbody>
+<!--        <p th:text="${employers}"></p>-->
+
+        <tr th:each="employer : ${employers}">
+            <td th:text="${employer.key}">key</td>
+
+            <th:block th:each="value : ${employer.value}">
+                <td th:text="${value.name}">name</td>
+                <td th:text="${value.address}">address</td>
+            </th:block>
+         </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
