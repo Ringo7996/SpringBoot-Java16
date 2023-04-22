@@ -13,21 +13,21 @@ import java.util.List;
 public class UpsertCourseRequest {
     @NotNull(message = "Name is required")
     @NotEmpty(message = "Name is required")
-    String name;
+    private String name;
 
     @NotNull(message = "Description is required")
     @NotEmpty(message = "Description is required")
     @Size(min = 50)
-    String description;
+    private String description;
 
     @NotNull(message = "Type is required")
     @NotEmpty(message = "Type is required")
-    String type;
-    List<String> topics;
-    String thumbnail;
+    private String type;
+    private List<String> topics;
+    private String thumbnail;
 
     @NotNull(message = "userId is required")
     @NotEmpty(message = "userId is required")
-    int userId;
+    private int userId;
 
 }

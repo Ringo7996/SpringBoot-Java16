@@ -3,7 +3,6 @@ package com.example.APIUser.controller;
 import com.example.APIUser.dto.CourseRecord;
 import com.example.APIUser.dto.CourseWithPageRecord;
 import com.example.APIUser.dto.UpsertCourseRequest;
-import com.example.APIUser.repo.Repository;
 import com.example.APIUser.service.AdminService;
 import com.example.APIUser.service.UserService;
 import jakarta.validation.Valid;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/admin/courses")
@@ -36,7 +33,7 @@ public class AdminController {
 
     //POST /api/v1/admin/courses
     @PostMapping("")
-    public ResponseEntity<?> createCourse( @Valid @RequestBody UpsertCourseRequest req) {
+    public ResponseEntity<?> createCourse(@Valid @RequestBody UpsertCourseRequest req) {
         return ResponseEntity.ok(adminService.createCourse(req));
     }
 

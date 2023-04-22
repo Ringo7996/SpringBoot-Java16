@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 @AllArgsConstructor
 @Component
 public class User {
-    int id;
-    String name;
-    String email;
-    String phone;
-    String avatar;
+    private int id;
+    private String name;
+    private String email;
+    private String phone;
+    private String avatar;
 
 }

@@ -14,12 +14,12 @@ import java.util.List;
 @AllArgsConstructor
 @Component
 public class Course {
-    int id;
-    String name;
-    String description;
-    String type;
-    List<String> topics;
-    String thumbnail;
-    int userId;
+    private int id;
+    private String name;
+    private String description;
+    private String type;
+    private List<String> topics;
+    private String thumbnail;
+    private int userId;
 
 }
