@@ -1,5 +1,6 @@
 package com.example.userdemo.mapper;
 
+import com.example.userdemo.dto.CreateUserRequest;
 import com.example.userdemo.dto.UserRecord;
 import com.example.userdemo.entity.User;
 

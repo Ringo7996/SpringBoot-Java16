@@ -1,4 +1,10 @@
 package com.example.userdemo.dto;
 
-public record UserRecord(int id, String name, String email, String phone, String avatar) {
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
+public record UserRecord(int id, String name,
+                         @NotNull String email,
+                         @NotEmpty String phone,
+                         String avatar) {
 }

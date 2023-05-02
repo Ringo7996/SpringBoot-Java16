@@ -1,9 +1,6 @@
 package com.example.userdemo.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.stereotype.Component;
 
 @Getter
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Component
+@Builder(toBuilder = true,setterPrefix = "with")
 public class User {
     private int id;
 

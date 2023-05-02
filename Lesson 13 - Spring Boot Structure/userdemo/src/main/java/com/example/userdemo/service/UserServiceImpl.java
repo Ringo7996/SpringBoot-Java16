@@ -1,8 +1,9 @@
 package com.example.userdemo.service;
 
+import com.example.userdemo.dto.CreateUserRequest;
 import com.example.userdemo.dto.UserRecord;
 import com.example.userdemo.entity.User;
-import com.example.userdemo.error.NotFoundExeption;
+import com.example.userdemo.error.UserNotFoundExeption;
 import com.example.userdemo.mapper.UserMapper;
 import org.springframework.stereotype.Component;
 
@@ -36,9 +37,9 @@ public class UserServiceImpl implements UserService {
 //            return null;
 //        }
 
-        Optional<User> user2Find = users.stream().filter(user -> user.getId() == id).findFirst();
+        Optional<User> user2Find  = users.stream().filter(user -> user.getId() == id).findFirst();
         if (!user2Find.isPresent()) {
-            throw new NotFoundExeption("User not found");
+            throw new UserNotFoundExeption("User" + id + "not found");
         } else {
             return UserMapper.toUserRecord(user2Find.get());
         }
@@ -51,6 +52,8 @@ public class UserServiceImpl implements UserService {
 
     }
 
+
+
     @Override
     public List<UserRecord> searchUser(String name) {
         return users.stream().filter(user -> user.getName().contains(name)).map(UserMapper::toUserRecord).collect(Collectors.toList());
@@ -58,13 +61,28 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserRecord> searchUser(List<String> names) {
-//        return users.stream().filter(user -> checkUsernameContain(names,));
+        return users.stream().filter(user -> checkUsernameContain(names,user.getName())).map(UserMapper::toUserRecord).collect(Collectors.toList());
 
-        return null;
     }
 
     private boolean checkUsernameContain(List<String> names, String username) {
         return names.stream().filter(e -> username.contains(e)).findFirst().isPresent();
     }
 
+
+
+    @Override
+    public UserRecord createUser(CreateUserRequest request) {
+        User newUser = User.builder().withId(users.size()+1)
+                .withName(request.getFullName())
+                .withEmail(request.getEmail())
+                .withPhone(request.getPhone())
+              .withPassword(request.getPassword())
+//                .withPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt(12)))
+                .build();
+
+
+        return UserMapper.toUserRecord(newUser);
+
+    }
 }

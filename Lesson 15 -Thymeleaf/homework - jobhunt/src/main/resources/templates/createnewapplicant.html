@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create new applicant</title>
+</head>
+<body>
+<h1>New applicant infomation</h1>
+<form action="#" th:action="@{/applicants/createnewapplicant}" th:object="${createApplicantRequest}" method="post">
+    <input type="text" placeholder="Applicant's name" th:field="*{name}"/><br><br>
+    <input type="text" placeholder="Applicant's email" th:field="*{email}"/><br><br>
+    <input type="text" placeholder="Applicant's address" th:field="*{address}"/><br><br>
+
+    <button type="submit">Create new applicant</button>
+</form>
+
+<div th:if="${createApplicantResponse}">
+    <p th:text="|Đã thêm mới nhà tuyển dụng ${createApplicantResponse.name} với mã ${createApplicantResponse.id}|"></p>
+</div>
+</body>
+</html>

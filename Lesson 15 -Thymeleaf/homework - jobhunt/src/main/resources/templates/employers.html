@@ -11,6 +11,7 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Name</th>
+            <th scope="col">Email</th>
             <th scope="col">Address</th>
         </tr>
         </thead>
@@ -22,6 +23,7 @@
 
             <th:block th:each="value : ${employer.value}">
                 <td th:text="${value.name}">name</td>
+                <td th:text="${value.email}">email</td>
                 <td th:text="${value.address}">address</td>
             </th:block>
          </tr>
