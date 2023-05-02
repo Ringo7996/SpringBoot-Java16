@@ -7,6 +7,7 @@ import com.example.APIUser.entity.Course;
 import com.example.APIUser.exception.NotFoundException;
 import com.example.APIUser.mapper.CourseMapper;
 import com.example.APIUser.repo.AppRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

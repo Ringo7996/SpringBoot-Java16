@@ -27,7 +27,6 @@ public class UpsertCourseRequest {
     private String thumbnail;
 
     @NotNull(message = "userId is required")
-    @NotEmpty(message = "userId is required")
-    private int userId;
+    private Integer userId;
 
 }
