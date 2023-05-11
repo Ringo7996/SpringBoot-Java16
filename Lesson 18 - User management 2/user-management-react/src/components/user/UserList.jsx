@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
+let users = [];
 function UserList() {
   const API_URL = "http://localhost:8080/users";
   const [filterUsers, setFilterUsers] = useState([]);
@@ -11,21 +13,67 @@ function UserList() {
   }, []);
 
   async function getUserList() {
+    try {
+      let res = await axios.get(API_URL)
 
-    let res = await axios.get(`${API_URL}`)
-
-    // Sau khi có data thì hiển thị kết quả trên giao diện
-    console.log(res.data.message);
+      if (res.status === 200) {
+        let defaultData = res.data;
+        console.log("getUserList", defaultData)
+        users = defaultData;
+        setFilterUsers(defaultData);
+      } else {
+        console.error(res);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
+  // const filterUser = async () => {
+  //   try {
+  //     let res = await axios.get(`${API_URL}/search?name=${searchValue}`)
+
+  //     if (res.status === 200) {
+  //       let users = res.data;
+  //       console.log("filterUser", users)
+  //       setFilterUsers(users);
+  //     } else {
+  //       console.error(res);
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
 
 
   const filterUser = () => {
-
+    let newUsers = [];
+    if (searchValue.trim() === "") {
+      newUsers = users.slice();
+    } else {
+      newUsers = users.filter(user => user.name.toLowerCase().includes(searchValue.toLowerCase()));
+    }
+    setFilterUsers(newUsers);
   }
 
-  const deleteUser = () => {
 
+  const deleteUser = async (userId) => {
+    let newUsers = [];
+    try {
+      let res = await axios.delete(`${API_URL}?id=${userId}`)
+      if (res.status === 200) {
+
+        newUsers = users.filter((user) => user.id !== userId);
+
+        // let users = res.data;
+        // console.log("deleteUser", users)
+        setFilterUsers(newUsers);
+      } else {
+        console.error(res);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
 
@@ -70,7 +118,7 @@ function UserList() {
                       <td>{user.phone}</td>
                       <td>{user.address}</td>
                       <td>
-                        <Link to={"/users/" + user.id} className="btn btn-success">Detail</Link>
+                        <Link to={"/users/" + user.id} className="btn btn-success" user={user}>Detail</Link>
                         <button className="btn btn-danger" onClick={() => deleteUser(user.id)}>Delete</button>
                       </td>
                     </tr>
