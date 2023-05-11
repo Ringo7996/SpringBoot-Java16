@@ -38,9 +38,6 @@ function CartPage() {
   async function increment(cartItemId) {
     try {
       let count = cartItems.find((cartItem) => cartItem.id === cartItemId).count;
-      if (count >= 10) {
-        return;
-      }
       let res = await axios.put(`${API_URL}/${cartItemId}/increment`);
 
       if (res.status === 200) {
@@ -80,6 +77,11 @@ function CartPage() {
 
 
   async function deleteItem(cartItemId) {
+    let deleteConfirm = window.confirm("Do you want to delete this item?")
+    if (!deleteConfirm){
+      return;
+    }
+
     try {
       let res = await axios.delete(`${API_URL}/${cartItemId}`);
 
