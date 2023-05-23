@@ -76,7 +76,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> filterByNameAndEmailContains(String nameOrEmail, Pageable pageable) {
-        return null;
+
+        List<UserDTO> userDTOList = userRepository.findByNameContainsAndEmailContains(nameOrEmail,pageable);
+        return userDTOList;
     }
 
 

@@ -34,7 +34,7 @@ public class UserController {
         return userService.getUserByPageAndSortPageable(pageable);
     }
 
-    @GetMapping
+    @GetMapping("/query")
     public List<UserDTO> filterByNameAndEmailContains(@RequestParam(name = "nameOrEmail") String nameOrEmail,Pageable pageable){
         return userService.filterByNameAndEmailContains(nameOrEmail, pageable);
     }

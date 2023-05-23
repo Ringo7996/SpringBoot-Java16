@@ -55,12 +55,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(nativeQuery = true, name = "getUserInfo")
     User getUserInfo(int id);
 
-
+    // cách 1 projection
     // step 3: gọi câu query đã được khai báo tên trong entity
     @Query(nativeQuery = true, name = "getUserDTOUsingNativeQuery")
     List<UserDTO> getUserDTOUsingNativeQuery();
 
-    // cachs 1 projection
+
     List<UserProjection> findUserProjectionByName(String name);
 
     // cách 2 projection
@@ -81,8 +81,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<UserDTO> getUserDTOWithPage(Pageable pageable);
 
 
-
-
+    @Query(value = "select new vn.techmaster.hellojpa.dto.UserDTO(u.id, u.name, u.email) from User u where u.name like %?1% or u.email like %?1%")
+    List<UserDTO> findByNameContainsAndEmailContains(String nameOrEmail, Pageable pageable);
 }
 
 
