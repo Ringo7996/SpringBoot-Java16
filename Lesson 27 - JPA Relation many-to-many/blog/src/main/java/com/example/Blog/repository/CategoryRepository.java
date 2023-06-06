@@ -9,13 +9,13 @@ import java.util.List;
 
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-    @Query("SELECT new com.example.JpaRelation.dto.CategoryDto(c.id, c.name, COUNT(b.id)) " +
+    @Query("SELECT new com.example.Blog.dto.CategoryDto(c.id, c.name, COUNT(b.id)) " +
             "FROM Category c JOIN c.blogs b " +
             "WHERE b.status = true " +
             "GROUP BY c.id")
     List<CategoryDto> getAllCategories();
 
-    @Query("SELECT new com.example.JpaRelation.dto.CategoryDto(c.id, c.name, COUNT(b.id)) " +
+    @Query("SELECT new com.example.Blog.dto.CategoryDto(c.id, c.name, COUNT(b.id)) " +
             "FROM Category c JOIN c.blogs b " +
             "WHERE b.status = true " +
             "GROUP BY c.id " +
