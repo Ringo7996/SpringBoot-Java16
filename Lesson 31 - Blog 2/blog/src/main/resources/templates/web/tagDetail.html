@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{web/layout/layout :: main-fragment(~{::title}, ~{}, ~{::main}, ~{})}">
+
+<head>
+    <title>Kong's Blog</title>
+
+</head>
+
+<body class="list" id="top">
+
+    <main class="main">
+        <header class="entry-header">
+            <h1 style="margin-bottom: 1rem;" th:text="${category}">Tag : Java</h1>
+        </header>
+
+        <article class="post-entry" th:each="blog : ${blogList}">
+            <header class="entry-header">
+                <h2 th:text="${blog.title}">
+                    Hướng dẫn tạo tài khoản và sử dụng Chat GPT chỉ với 1
+                    cốc trà đá
+                </h2>
+            </header>
+            <div class="entry-content">
+                <p th:text="${blog.description}">
+                   Blog Description
+                </p>
+            </div>
+            <footer class="entry-footer">
+                <span th:text="${#temporals.format(blog.publishedAt, 'dd/MM/yyyy')}">01/02/2023</span>
+            </footer>
+            <a class="entry-link"
+               aria-label="post link to Hướng dẫn tạo tài khoản và sử dụng ChatGPT chỉ với 1 cốc trà đá"
+               th:href="@{/blogs/{id}/{slug}  (id=${blog.id}, slug=${blog.slug})} "></a>
+        </article>
+    </main>
+</body>
+
+</html>

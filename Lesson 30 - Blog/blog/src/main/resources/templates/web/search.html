@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="vi" dir="auto" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{web/layout/layout :: main-fragment(~{::title}, ~{}, ~{::main}, ~{})}">
+    <head>
+        <title>Search | Kong's Blog</title>
+
+    </head>
+
+    <body class="list" id="top">
+        <main class="main">
+            <header class="page-header">
+                <h1>
+                    Search
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="28"
+                        height="28"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentcolor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <circle cx="11" cy="11" r="8" />
+                        <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </svg>
+                </h1>
+                <div class="post-description">Tìm kiếm bài viết</div>
+                <div class="post-meta"></div>
+            </header>
+            <div id="searchbox">
+                <form action="#" th:action="@{/search}" th:method="get">
+                <input
+                    id="searchInput"
+                    autofocus
+                    placeholder="Tìm kiếm bài viết"
+                    type="search"
+                    autocomplete="off"
+                    name="term"
+                />
+                </form>
+                <ul id="searchResults" th:if="${not #lists.isEmpty(blogList)}">
+                    <li class="post-entry" th:each="blog: ${blogList}">
+                        <header class="entry-header" th:text="${blog.title}">
+                            Truyền dữ liệu giữa React Components&nbsp;
+                        </header>
+                        <a
+                            th:href="@{/blogs/{id}/{slug}  (id=${blog.id}, slug=${blog.slug})}"
+                            aria-label="${blog.title}"
+                        ></a>
+                    </li>
+                </ul>
+                <p th:if="${#lists.isEmpty(blogList) && term != null}"> Không có kết quả tìm kiếm </p>
+            </div>
+        </main>
+    </body>
+</html>
