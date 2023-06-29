@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang=vi dir=auto xmlns:th="http://www.thymeleaf.org"
+      th:fragment="main-fragment(title, css, content, js)">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="x-ua-compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"/>
+
+    <title th:replace="${title} ?: ~{}">Title</title>
+    <link rel=icon th:href="@{/img/umaru.PNG}">
+    <link rel=icon type=image/png sizes=16x16 href=img/umaru.PNG>
+    <link rel=icon type=image/png sizes=32x32 href=img/umaru.PNG>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+
+    <!--        CSS-->
+    <th:block th:replace="${css} ?: ~{}"></th:block>
+</head>
+
+<body>
+
+<!--    HEADER-->
+<th:block th:replace="~{web/fragments/header :: .header}"></th:block>
+
+<!--    CONTENT-->
+<th:block th:replace="${content} ?: ~{}"></th:block>
+
+<!--    JS-->
+<script th:src="@{/js/main.js}">
+    console.log("test js")
+</script>
+<th:block th:replace="${js} ?: ~{}"></th:block>
+</body>
+</html>
