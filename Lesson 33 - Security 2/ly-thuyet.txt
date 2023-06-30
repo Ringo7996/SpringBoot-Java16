@@ -1,0 +1,34 @@
+1. UserNamePasswordAuthenticationToken: Đối tượng token dùng để lưu thông tin xác thực
+ có 2 loại constructor với tham số truyền vào khác nhau.
+(principal, credentials) -> tương ứng (username, password) 
+(principal, credentials, authorities) -> tương ứng (username, password, roles);
+
+
+AuthenticationManager: là interface có 1 method authenticate( ), method này nhận vào parameter là authentication (token ở trên), yêu cầu đến AuthenticationProvider tiến hành xác thực dựa vào thông tin token đó
+
+AuthenticationProvider: là interface thể hiện cơ chế, cách thức xác thực
+
+PasswordEncoder: là interface thể hiện cách thức mã hoá password
+
+UserDetailsService: là interface có 1 method loadUserByUsername(), để tìm kiếm thông tin đăng nhập của người dùng thông qua tên người dùng
+
+UserDetails: interface có các hàm get được thông tin của người dùng (username, password, expired...).
+
+
+2. 
+① người dùng gửi lên request kèm ID, password lên filter chains.
+② Trên  filter chains có các lớp filter. Authentication filter lấy Id, password tạo thành đối tượng xác thực authentication,
+③  Authentication manager nhận lấy authentication có nhiệm vụ tiến hành xác thực
+④  authentication manager gọi đến authentication provider cung cấp cách thức xác thực
+⑤ authentication provider sử dụng password encoder để kiểm tra password và xác thực người dùng.
+⑥ Nếu như xác thực thành công, dùng userDetailsService để tìm ra đối tượng người dùng bằng name. 
+⑦ Tìm người dùng bằng name, ra UserDetails chứa thông tin về tài khoản của người dùng
+⑧ Và tìm được cả User extend UserDetails chứa cả các thông tin khác của người dùng được định nghĩa.
+⑨ userDetailsService trả về thông tin của người dùng cho AuthenticationProvider
+⑩AuthenticationProvider trả thông tin của người dùng cho AuthenticationManager 
+⑪ AuthenticationManager  trả  thông tin của người dùng về Filter chains
+⑫Thông tin người dùng trả về được lưu vào trong security context holder, dùng cho những lần xác thực tiếp theo.
+
+
+3. Session là phiên làm việc. Khi người dùng truy cập vào trang web, session được tạo ra vào lưu vào server, định danh bằng sessionID, sessionID lưu vào cookie bên client.
+Cookie là file lưu trữ bên trình duyệt phía client, lưu giữ thông tin người dùng, khi gửi request lên server thì cookie được đi kèm theo.
