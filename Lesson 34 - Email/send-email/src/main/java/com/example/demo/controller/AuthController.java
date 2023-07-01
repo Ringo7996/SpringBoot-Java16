@@ -7,6 +7,7 @@ import com.example.demo.request.LoginRequest;
 import com.example.demo.service.MailService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +33,7 @@ public class AuthController {
 
     @Autowired
     private PasswordEncoder encoder;
+
 
     @PostMapping("login-handle")
     public ResponseEntity<?> login(@RequestBody LoginRequest request, HttpSession session) {
@@ -60,11 +61,11 @@ public class AuthController {
 
     @PostMapping("/forgot-password")
     public ResponseEntity<?> sendResetPwEmail(@RequestParam String email) {
-//        try {
+        try {
             userService.sendResetPwEmail(email);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("Cannot send email");
-//        }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Cannot send email");
+        }
 
         return ResponseEntity.ok("Send mail success");
     }
@@ -72,7 +73,9 @@ public class AuthController {
 
     @PatchMapping("/update-password")
     public ResponseEntity<?> resetPw(@RequestParam(name = "email") String email, @RequestBody String password) {
+
         String encodedPassword = encoder.encode(password);
+
         try {
             userService.resetPw(email, encodedPassword);
         } catch (Exception e) {

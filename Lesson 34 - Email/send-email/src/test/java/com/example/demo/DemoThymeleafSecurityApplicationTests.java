@@ -37,9 +37,13 @@ class DemoThymeleafSecurityApplicationTests {
         Role authorRole = roleRepository.findByName("AUTHOR").orElse(null);
 
         List<User> users = List.of(
-                new User(null, "Nguyen Van A", "a@gmail.com", encoder.encode("111"), List.of(useRole)),
-                new User(null, "Tran Van B", "b@gmail.com", encoder.encode("111"), List.of(useRole, adminRole)),
-                new User(null, "Ngo Thi C", "c@gmail.com", encoder.encode("111"), List.of(useRole, authorRole))
+                new User(null, "Nguyen Van A", "a1@gmail.com", "111", List.of(useRole)),
+                new User(null, "Tran Van B", "b1@gmail.com","111", List.of(useRole, adminRole)),
+                new User(null, "Ngo Thi C", "c1@gmail.com", "111", List.of(useRole, authorRole)),
+                new User(null, "Nguyen Van E", "e1@gmail.com", encoder.encode("111"), List.of(useRole)),
+                new User(null, "Tran Van F", "f1@gmail.com", encoder.encode("111"), List.of(useRole, adminRole)),
+                new User(null, "Ngo Thi G", "g1@gmail.com", encoder.encode("111"), List.of(useRole, authorRole))
+
         );
         userRepository.saveAll(users);
     }
